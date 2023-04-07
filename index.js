@@ -1,6 +1,9 @@
-import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv"
+
+import app from "./server.js"
+
+import PagesDAO from "./dao/pagesDAO.js"
 
 dotenv.config()
 
@@ -19,6 +22,7 @@ MongoClient.connect(
     console.error(err.stack)
     process.exit(1)
 }).then( async client => {
+    await PagesDAO.injectDB(client)
     app.listen(port, () => {
         console.log(`listining on port ${port}`)
     })
