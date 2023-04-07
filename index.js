@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import app from "./server.js"
 
 import PagesDAO from "./dao/pagesDAO.js"
+import ButtonsDAO from "./dao/buttonsDAO.js"
 
 dotenv.config()
 
@@ -23,6 +24,7 @@ MongoClient.connect(
     process.exit(1)
 }).then( async client => {
     await PagesDAO.injectDB(client)
+    await ButtonsDAO.injectDB(client)
     app.listen(port, () => {
         console.log(`listining on port ${port}`)
     })
