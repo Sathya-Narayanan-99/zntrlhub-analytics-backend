@@ -76,11 +76,22 @@ export default class AnalyticsDAO {
         } else {
             dt_query = query
         }
+
+        let agg_query = [
+            { $match: dt_query },
+            { $lookup: {
+                from: 'customerdetails',
+                localField: 'uuid',
+                foreignField: 'uuid',
+                as: 'customerdetails'
+            }},
+            { $unwind: '$customerdetails' }
+        ]
         
         let cursor
 
         try {
-            cursor = await analytics.find(dt_query)
+            cursor = await analytics.aggregate(agg_query)
         } catch (e) {
             console.error(`Unable to issue find command in AnalyticsDAO, ${e}`)
             return { results: [], count: 0}
