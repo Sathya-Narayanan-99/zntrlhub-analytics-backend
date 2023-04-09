@@ -99,7 +99,7 @@ export default class AnalyticsDAO {
         
         let dispCursor
         if (use_pagination){
-            dispCursor = cursor.limit(resultsPerPage).skip(resultsPerPage*page)
+            dispCursor = cursor.skip(resultsPerPage*page).limit(resultsPerPage)
         } else {
             dispCursor = cursor
         }
