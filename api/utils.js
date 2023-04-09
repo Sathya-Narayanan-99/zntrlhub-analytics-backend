@@ -88,7 +88,6 @@ function sanitize_filters(filters) {
             } else if (obj.units === "MINUTES"){
                 obj.value *= 60
             }
-            obj.value = String(obj.value)
         }
     }
 }
