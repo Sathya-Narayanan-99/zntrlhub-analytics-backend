@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Sathya-Narayanan-99/zntrlhub-analytics-backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "csv-writer": "^1.6.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongodb": "^5.2.0",
