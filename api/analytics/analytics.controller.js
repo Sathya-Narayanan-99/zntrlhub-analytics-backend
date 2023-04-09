@@ -52,12 +52,16 @@ export default class AnalyticsController {
 
             const sanitized_results = results.map((item) => ({
                 ...item,
+                customer_name: item.customerdetails && item.customerdetails.cust_name ? item.customerdetails.cust_name : '',
+                wa_number: item.customerdetails && item.customerdetails.wa_number ? item.customerdetails.wa_number : '',
                 button_clicked: item.button_clicked && item.button_clicked.button_name ? item.button_clicked.button_name.replace(/\n|\t/g, '') : '',
               }));
 
             const csvWriter = createObjectCsvWriter({
                 path: 'output.csv',
                 header: [
+                    { id: 'customer_name', title: 'Customer Name' },
+                    { id: 'wa_number', title: 'Whatsapp Number' },
                     { id: 'browser_name', title: 'Browser Name' },
                     { id: 'button_clicked', title: 'Button Clicked' },
                     { id: 'date_created', title: 'Date Created' },
