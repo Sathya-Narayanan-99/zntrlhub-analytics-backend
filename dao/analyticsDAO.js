@@ -18,7 +18,8 @@ export default class AnalyticsDAO {
         page=0,
         resultsPerPage=20,
         date_gte=null,
-        date_lte=null
+        date_lte=null,
+        use_pagination=true
     } = {}) {
         let query
         if (filters.length == 3) {
@@ -84,8 +85,13 @@ export default class AnalyticsDAO {
             console.error(`Unable to issue find command in AnalyticsDAO, ${e}`)
             return { results: [], count: 0}
         }
-
-        const dispCursor = cursor.limit(resultsPerPage).skip(resultsPerPage*page)
+        
+        let dispCursor
+        if (use_pagination){
+            dispCursor = cursor.limit(resultsPerPage).skip(resultsPerPage*page)
+        } else {
+            dispCursor = cursor
+        }
 
         try{
             const results = await dispCursor.toArray()
