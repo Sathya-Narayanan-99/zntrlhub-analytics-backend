@@ -1,6 +1,5 @@
 import mongodb from "mongodb"
 import dotenv from "dotenv"
-import serverless from "serverless-http"
 
 import app from "./server.js"
 
@@ -28,11 +27,7 @@ MongoClient.connect(
     await PagesDAO.injectDB(client)
     await ButtonsDAO.injectDB(client)
     await AnalyticsDAO.injectDB(client)
-    if (process.env.STAGE == 'PROD'){
-        exports.handler = serverless(app)
-    } else {
-        app.listen(port, () => {
-            console.log(`listining on port ${port}`)
-        })
-    }
+    app.listen(port, () => {
+        console.log(`listining on port ${port}`)
+    })
 })
